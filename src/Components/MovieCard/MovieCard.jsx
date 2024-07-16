@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import propTypes from "prop-types"
 import noPicture from "/public/no-poster-af8294eb.png"
 import RatingBoard from '../RatingBoard/RatingBoard'
+import { memo } from 'react'
 const MovieCard = ({ movie, mediaType }) => {
     return (
         <Link to={`/detail/${mediaType}/${movie.id}`}>
@@ -47,4 +48,4 @@ MovieCard.propTypes = {
 }
 
 
-export default MovieCard
+export default memo(MovieCard)

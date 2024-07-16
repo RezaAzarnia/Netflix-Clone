@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import useFetch from "../../hooks/useFetch"
 import { fetchTopRatedmovies } from "../../Services/moviesService"
 import { Flex, Heading } from "@chakra-ui/react"
@@ -6,12 +6,11 @@ import SwitchButton from "../SwitchButton/SwitchButton"
 import MovieSlider from "../MovieSlider/MovieSlider"
 
 const TopRated = () => {
-    const [movieType, setMovieType] = useState("movie")
+    const [movieType, setMovieType] = useState("tv")
 
-    const handleChange = (data) => {
+    const handleChange = useCallback((data) => {
         setMovieType(data === "movies" ? "movie" : "tv")
-    }
-
+    },[])
     const { isLoading, query } = useFetch(() => fetchTopRatedmovies(movieType), movieType)
     return (
         <>
@@ -19,7 +18,7 @@ const TopRated = () => {
                 <Heading size={"lg"} as={"h1"} >
                     Top Rated
                 </Heading>
-                <SwitchButton data={['movies', "tv show"]} onChange={handleChange} />
+                <SwitchButton data={["tv show", "movies"]} onChange={handleChange} />
             </Flex>
             <MovieSlider isLoading={isLoading} movies={query} mediaType={movieType} />
         </>

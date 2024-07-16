@@ -2,15 +2,15 @@ import { fetchTrendingMovies } from "../../Services/moviesService"
 import useFetch from "../../hooks/useFetch"
 import { Flex, Heading } from "@chakra-ui/react"
 import SwitchButton from "../SwitchButton/SwitchButton"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import MovieSlider from "../MovieSlider/MovieSlider"
 
 const Trending = () => {
     const [trendingTime, setTrendingTime] = useState("day")
 
-    const handleChange = (data) => {
+    const handleChange = useCallback((data) => {
         setTrendingTime(data === "day" ? "day" : "week")
-    }
+    }, [])
 
     const { isLoading, query } = useFetch(() => fetchTrendingMovies(trendingTime), trendingTime)
     return (
